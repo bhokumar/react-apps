@@ -35,3 +35,50 @@ export const purchaseBurger = ( orderData ) => {
         })
     }
 }
+
+export const purchaseInit = () => {
+    return {
+        type: actionTypes.PURCHASE_INIT
+    }
+}
+
+export const fetchOrdersSuccess = ( orders ) => {
+    return {
+        type: actionTypes.FETCH_ORDERS_SUCCESS,
+        payload: orders
+    }
+}
+
+export const fetchOrdersFail = ( error ) => {
+    return {
+        type: actionTypes.FETCH_ORDERS_FAIL,
+        payload: error
+    }
+}
+
+export const fetchOrdersStart = () => {
+    return {
+        type: actionTypes.FETCH_ORDERS_START,
+    }
+}
+
+export const fetchOrders = () => {
+    return dispatch => {
+        dispatch(fetchOrdersStart());
+        axios.get('/orders.json').then(response => {
+            console.log(response.data);
+
+            const fetchedOrders = [];
+            for(let key  in response.data){
+                fetchedOrders.push({
+                    ...response.data[key],
+                    id: key
+                });
+            }
+            dispatch(fetchOrdersSuccess(fetchedOrders));
+        }).catch(error =>{
+            dispatch(fetchOrdersFail(error));
+            console.log('Error occurred!');
+        });
+    }
+}
