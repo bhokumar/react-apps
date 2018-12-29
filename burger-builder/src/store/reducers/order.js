@@ -8,42 +8,56 @@ const initialState = {
     error: null
 }
 
+const purchaseOrderSuccess = (state, action) => {
+    const updatedOrder = updateObject(action.payload.orderData, {
+        id: action.payload.id,
+        purchased: true
+    });
+    return updateObject(state, {
+        loading: false,
+        orders: state.orders.concat(updatedOrder)
+    });
+}
+
+const purchaseBurgerFail = (state, action) => {
+    return updateObject(state, { loading: false});
+}
+
+const purchaseBurgerStart = (state, action) => {
+    return updateObject(state, { loading: true});
+}
+
+const purchaseInit = (state, action) => {
+    return updateObject(state, { purchased: false});
+}
+
+const fetchOrderStart = (state, action) => {
+    return updateObject(state, { loading: true});
+}
+
+const fetchOrderSuccess = (state, action) => {
+    return updateObject(state, { 
+        orders: action.payload,
+        loading: false
+    });
+}
+
+const fetchOrderFail = (state, action) => {
+    return updateObject(state, { 
+        error: action.payload,
+        loading: false
+    });
+}
+
 const orderReducer = (state = initialState, action) => {
     switch( action.type) {
-        case ( actionTypes.PURCHASE_BURGER_SUCCESS ): {
-            const updatedOrder = updateObject(action.payload.orderData, {
-                id: action.payload.id,
-                purchased: true
-            });
-            return updateObject(state, {
-                loading: false,
-                orders: state.orders.concat(updatedOrder)
-            });
-        }
-        case ( actionTypes.PURCHASE_BURGER_FAIL ): {
-            return updateObject(state, { loading: false});
-        }
-        case ( actionTypes.PURCHASE_BURGER_START ): {
-            return updateObject(state, { loading: true});
-        }
-        case ( actionTypes.PURCHASE_INIT ): {
-            return updateObject(state, { purchased: false});
-        }
-        case ( actionTypes.FETCH_ORDERS_START): {
-            return updateObject(state, { loading: true});
-        }
-        case ( actionTypes.FETCH_ORDERS_SUCCESS): {
-            return updateObject(state, { 
-                orders: action.payload,
-                loading: false
-            });
-        }
-        case ( actionTypes.FETCH_ORDERS_FAIL ): {
-            return updateObject(state, { 
-                error: action.payload,
-                loading: false
-            });
-        }
+        case ( actionTypes.PURCHASE_BURGER_SUCCESS ): return purchaseOrderSuccess(state, action);
+        case ( actionTypes.PURCHASE_BURGER_FAIL ): return purchaseBurgerFail(state, action);
+        case ( actionTypes.PURCHASE_BURGER_START ): return purchaseBurgerStart(state, action);
+        case ( actionTypes.PURCHASE_INIT ): return purchaseInit(state, action);
+        case ( actionTypes.FETCH_ORDERS_START): return fetchOrderStart(state, action);
+        case ( actionTypes.FETCH_ORDERS_SUCCESS): return fetchOrderSuccess(state, action);
+        case ( actionTypes.FETCH_ORDERS_FAIL ): return fetchOrderFail(state, action);
         default:
             return state;
     }
