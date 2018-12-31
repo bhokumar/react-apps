@@ -15,7 +15,7 @@ import * as serviceWorker from './serviceWorker';
 
 const middlewares = applyMiddleware(thunk, logger);
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
 const reducers = combineReducers({
     burger: burgerBuilderReducer,

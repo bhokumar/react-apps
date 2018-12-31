@@ -56,7 +56,6 @@ export const auth = (email, password, isSignUp) => {
         }
         axios.post(url, authData)
         .then(response => {
-            console.log(response);
             const authData = {
                 userId: response.data.localId,
                 idToken: response.data.idToken
@@ -69,7 +68,6 @@ export const auth = (email, password, isSignUp) => {
             dispatch(checkAuthTimeout(response.data.expiresIn));
         })
         .catch(error => {
-            console.log(error);
             dispatch(authFail(error.response.data.error));
         });
     }
