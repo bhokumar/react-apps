@@ -21,7 +21,7 @@ const asyncAuth = asyncComponent(() => {
   return import('./containers/Auth/Auth');
 });
 
-class App extends Component {
+export class App extends Component {
   componentDidMount(){
     this.props.onTryAutoSignUp();
   }

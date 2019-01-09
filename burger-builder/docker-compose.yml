@@ -1,0 +1,19 @@
+version: "3"
+services: 
+  web-burger: 
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports: 
+      - "3000:3000"
+    volumes: 
+      - /usr/apps/node_modules
+      - .:/usr/apps
+  tests: 
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes: 
+      - /usr/apps/node_modules
+      - .:/usr/apps
+    command: ["npm", "run", "test"]
