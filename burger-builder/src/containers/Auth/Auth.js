@@ -119,7 +119,7 @@ class Auth extends Component {
                     {authRedirect}
                     {errorMessage}
                 <form onSubmit = {this.onSubmitHandler}>
-                    Sign {this.state.isSignUp ? 'Up' : 'In'}
+                    Sign {this.state.isSignUp ? 'Up' : 'In'} Form
                     {form}
                     <Button buttonType = "Success">SUBMIT</Button>
                 </form>
