@@ -7,3 +7,11 @@ before_install:
 
 script: 
   - docker run bhoopendra/burger-builder npm run test -- --coverage
+
+after_success:
+  - docker build -t bhoopendra/burger-builder ./burger-builder
+
+  #Login to the hub.docker.com using Docker Cli
+  - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_ID" --password-stdin
+  #Push the images to hub.docker.com
+  - docker push bhoopendra/burger-builder
