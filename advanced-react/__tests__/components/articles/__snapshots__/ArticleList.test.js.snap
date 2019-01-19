@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ArticleList ArticleList rnders correctly 1`] = `
+<div>
+  <div>
+    <div />
+    <div />
+    <div>
+      <a />
+    </div>
+    <div />
+  </div>
+  <div>
+    <div />
+    <div />
+    <div>
+      <a />
+    </div>
+    <div />
+  </div>
+</div>
+`;

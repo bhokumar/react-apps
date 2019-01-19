@@ -1,0 +1,78 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SmartApps application</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" name="viewport">
+   <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" />-->
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+
+    <style>
+        html body .container-fluid{height: 100%}
+        .fa-2x {
+            vertical-align: middle
+        }
+    </style>
+
+    <!-- PolyFill for IE11 Object.assign-->
+    <script>
+        if(typeof Object.assign != 'function'){
+            Object.defineProperty(Object,"assign",{
+                value:function assign(target,varArgs){
+                    'use strict';
+
+                    if(target == null){
+                        throw new TypeError('Cannot convert undefined or null to object');
+                    }
+
+                    var to  = Object(target);
+
+                    for(var index = 1; index<arguments.length;index++){
+                        var nextsource = arguments[index];
+
+                        if(nextsource!=null){
+                            for(var nextkey in nextsource){
+                                if(Object.prototype.hasOwnProperty.call(nextsource,nextkey)){
+                                    to[nextkey] = nextsource[nextkey];
+                                }
+                            }
+                        }
+                    }
+                    return to;
+                },
+                writable : true,
+                configurable : true
+            });
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+
+<script lang="javascript">
+    jQuery(function($){
+        $('body').on('click','.change-style-menu-item',function(){
+            let theme_name = $(this).attr('rel');
+            let theme = '/style/' + theme_name + '.min.css';
+            set_theme(theme);
+        })
+    });
+
+    function set_theme(theme){
+        $('link[title="main"]').attr('href',theme);
+        localStorage.theme = theme;
+    }
+
+    if(localStorage.theme){
+        set_theme(localStorage.theme);
+    }
+</script>
+
+</html>
